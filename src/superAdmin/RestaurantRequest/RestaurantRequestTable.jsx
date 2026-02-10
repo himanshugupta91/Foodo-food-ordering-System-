@@ -1,15 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Table, TableHead, TableBody, TableRow, TableCell } from "../../components/ui/Table";
 import { Card, LoadingSpinner } from "../../components/ui/Modal";
 
 const RestaurantRequestTable = ({ isDashboard, name }) => {
-  const dispatch = useDispatch();
   const { menu } = useSelector((store) => store);
-
-  useEffect(() => {
-    // Dispatch action if needed
-  }, []);
 
   const handleDeleteProduct = (productId) => {
     console.log("delete product ", productId);

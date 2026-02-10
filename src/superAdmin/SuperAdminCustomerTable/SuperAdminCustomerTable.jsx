@@ -10,7 +10,7 @@ const SuperAdminCustomerTable = ({ isDashboard, name }) => {
 
   useEffect(() => {
     dispatch(getCustomers());
-  }, []);
+  }, [dispatch]);
 
   const displayedCustomers = isDashboard
     ? superAdmin.customers.slice(0, 7)

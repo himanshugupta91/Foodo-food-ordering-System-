@@ -1,9 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import SuperAdminSidebar from "./SuperAdminSideBar";
-import SuperAdminCustomerTable from "./SuperAdminCustomerTable/SuperAdminCustomerTable";
 import Customers from "./SuperAdminCustomerTable/Customers";
-import RestaurantTable from "./Restaurants/RestaurantTable";
 import SuperAdminRestaurant from "./Restaurants/SuperAdminRestaurant";
 import RestaurantRequest from "./RestaurantRequest/RestaurantRequest";
 
