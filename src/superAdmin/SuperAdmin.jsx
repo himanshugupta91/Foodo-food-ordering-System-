@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import SuperAdminSidebar from "./SuperAdminSideBar";
-import Customers from "./SuperAdminCustomerTable/Customers";
-import SuperAdminRestaurant from "./Restaurants/SuperAdminRestaurant";
+import SuperAdminCustomerTable from "./SuperAdminCustomerTable/SuperAdminCustomerTable";
+import RestaurantTable from "./Restaurants/RestaurantTable";
 import RestaurantRequest from "./RestaurantRequest/RestaurantRequest";
 
 const SuperAdmin = () => {
@@ -16,8 +16,8 @@ const SuperAdmin = () => {
         <main className="flex-1">
           <div className="max-w-[1400px] mx-auto p-4 lg:p-8">
             <Routes>
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/restaurants" element={<SuperAdminRestaurant />} />
+              <Route path="/customers" element={<SuperAdminCustomerTable name="All Customers" />} />
+              <Route path="/restaurants" element={<RestaurantTable name="All Restaurants" />} />
               <Route path="/restaurant-request" element={<RestaurantRequest />} />
             </Routes>
           </div>

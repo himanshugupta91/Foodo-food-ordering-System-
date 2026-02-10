@@ -1,10 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllRestaurantsAction } from "../../state/customers/Restaurant/restaurant.action";
 import { Table, TableHead, TableBody, TableRow, TableCell } from "../../components/ui/Table";
 import { Card, LoadingSpinner } from "../../components/ui/Modal";
 
 const RestaurantTable = ({ isDashboard, name }) => {
+  const dispatch = useDispatch();
   const { restaurant } = useSelector((store) => store);
+
+  useEffect(() => {
+    dispatch(getAllRestaurantsAction(localStorage.getItem("jwt")));
+  }, [dispatch]);
 
   const displayedRestaurants = isDashboard
     ? restaurant.restaurants.slice(0, 7)
