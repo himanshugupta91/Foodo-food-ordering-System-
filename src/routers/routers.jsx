@@ -1,17 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import CustomerRoutes from "./CustomerRoutes";
-import Admin from "../admin/Admin";
-import AdminDashboard from "../admin/Dashboard/AdminDashboard";
-import SuperAdmin from "../superAdmin/SuperAdmin";
-import { useSelector } from "react-redux";
-import NotFound from "../customers/pages/NotFound/NotFound";
-import IngredientsList from "../data/Demo";
-import CreateRestaurantForm from "../admin/AddRestaurants/CreateRestaurantForm";
 import AdminRouters from "./AdminRouters";
+import SuperAdmin from "../superAdmin/SuperAdmin";
 
 const Routers = () => {
-  const { auth } = useSelector((store) => store);
 
   return (
     <>
@@ -22,6 +15,7 @@ const Routers = () => {
           path="/admin/restaurant/*"
           element={<AdminRouters />}
         />
+        <Route path="/super-admin/*" element={<SuperAdmin />} />
         <Route path="/*" element={<CustomerRoutes />} />
       </Routes>
     </>

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createIngredient } from '../../state/admin/Ingredients/Action';
 import { Input, Select, Button } from '../../components/ui/Form';
 
 const CreateIngredientForm = ({ handleClose }) => {
-  const { id } = useParams();
   const dispatch = useDispatch();
   const { auth, restaurant, ingredients } = useSelector(store => store);
   const jwt = localStorage.getItem("jwt");

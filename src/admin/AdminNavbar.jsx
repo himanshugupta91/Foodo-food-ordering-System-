@@ -1,11 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Menu } from "lucide-react";
 
 const AdminNavbar = ({ handleOpenSideBar }) => {
-  const navigate = useNavigate();
-  const { auth, restaurant } = useSelector((store) => store);
+  const { restaurant } = useSelector((store) => store);
 
   return (
     <nav className="sticky top-0 z-30 bg-white border-b border-neutral-200 lg:hidden shadow-sm">

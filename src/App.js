@@ -6,7 +6,6 @@ import { getUser } from "./state/authentication/Action";
 import { findCart } from "./state/customers/Cart/cart.action";
 import {
   getAllRestaurantsAction,
-  getRestaurantById,
   getRestaurantByUserId,
 } from "./state/customers/Restaurant/restaurant.action";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";

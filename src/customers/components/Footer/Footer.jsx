@@ -16,10 +16,10 @@ const Footer = () => {
 
                 {/* Socials */}
                 <div className="flex gap-6">
-                    <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors"><Facebook className="w-5 h-5" /></a>
-                    <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors"><Twitter className="w-5 h-5" /></a>
-                    <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors"><Instagram className="w-5 h-5" /></a>
-                    <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors"><Linkedin className="w-5 h-5" /></a>
+                    <a href="/" className="text-neutral-400 hover:text-primary-500 transition-colors"><Facebook className="w-5 h-5" /></a>
+                    <a href="/" className="text-neutral-400 hover:text-primary-500 transition-colors"><Twitter className="w-5 h-5" /></a>
+                    <a href="/" className="text-neutral-400 hover:text-primary-500 transition-colors"><Instagram className="w-5 h-5" /></a>
+                    <a href="/" className="text-neutral-400 hover:text-primary-500 transition-colors"><Linkedin className="w-5 h-5" /></a>
                 </div>
             </div>
         </footer>

@@ -10,7 +10,7 @@ import CreateIngredientForm from "./CreateIngredientForm";
 
 const Ingredients = () => {
   const dispatch = useDispatch();
-  const { auth, ingredients } = useSelector((store) => store);
+  const { ingredients } = useSelector((store) => store);
   const jwt = localStorage.getItem("jwt");
 
   const [openIngredientCategory, setOpenIngredientCategory] = useState(false);

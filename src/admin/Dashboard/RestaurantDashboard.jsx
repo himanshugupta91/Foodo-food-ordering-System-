@@ -2,18 +2,16 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getMenuItemsByRestaurantId } from "../../state/customers/Menu/menu.action";
-import { Grid } from "@mui/material";
+import { Grid, Card, CardContent, Typography } from "@mui/material";
 import OrdersTable from "../Orders/OrderTable";
 import MenuItemTable from "../Food/MenuItemTable";
-import AvgCard from "../ReportCard/ReportCard";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-import SellIcon from "@mui/icons-material/Sell";
-import FastfoodIcon from "@mui/icons-material/Fastfood";
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const RestaurantDashboard = () => {
   const { id } = useParams();
-  const { restaurant } = useSelector(store => store);
-  console.log("restaurants id ", id);
+  const { menu, restaurantsOrder } = useSelector((store) => store);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,53 +21,73 @@ const RestaurantDashboard = () => {
         jwt: localStorage.getItem("jwt"),
       })
     );
-  }, []);
+  }, [dispatch, id]);
 
-  console.log("restaurant", restaurant)
+  const totalOrders = restaurantsOrder.orders?.length || 0;
+  const totalMenuItems = menu.menuItems?.length || 0;
+  const pendingOrders = restaurantsOrder.orders?.filter(o => o.orderStatus === "PENDING").length || 0;
+
   return (
     <div className="px-2 animate-fade-in">
+      <h1 className="text-2xl font-bold mb-6">Restaurant Dashboard</h1>
 
-      <Grid container spacing={1}>
-        {/* <Grid item lg={3} xs={12}>
-          <AvgCard
-            title={"Total Earnings"}
-            value={`Rs. ${450}`}
-            growValue={70}
-            icon={
-              <CurrencyRupeeIcon sx={{ fontSize: "3rem", color: "gold" }} />
-            }
-          />
+      {/* Stats Cards */}
+      <Grid container spacing={3} className="mb-8">
+        <Grid item xs={12} md={4}>
+          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg">
+            <CardContent>
+              <div className="flex justify-between items-center">
+                <div>
+                  <Typography variant="h6" className="opacity-75">Total Orders</Typography>
+                  <Typography variant="h3" fontWeight="bold">
+                    {totalOrders}
+                  </Typography>
+                </div>
+                <ShoppingBagIcon style={{ fontSize: 60, opacity: 0.8 }} />
+              </div>
+            </CardContent>
+          </Card>
         </Grid>
-        <Grid item lg={3} xs={12}>
-          <AvgCard
-            title={"Total Selles"}
-            value={`${390}`}
-            growValue={35}
-            icon={<SellIcon sx={{ fontSize: "3rem", color: "green" }} />}
-          />
+
+        <Grid item xs={12} md={4}>
+          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg">
+            <CardContent>
+              <div className="flex justify-between items-center">
+                <div>
+                  <Typography variant="h6" className="opacity-75">Menu Items</Typography>
+                  <Typography variant="h3" fontWeight="bold">
+                    {totalMenuItems}
+                  </Typography>
+                </div>
+                <FastfoodIcon style={{ fontSize: 60, opacity: 0.8 }} />
+              </div>
+            </CardContent>
+          </Card>
         </Grid>
-        <Grid item lg={3} xs={12}>
-          <AvgCard
-            title={"Sold Items"}
-            value={`${299}`}
-            growValue={30}
-            icon={<FastfoodIcon sx={{ fontSize: "3rem", color: "blue" }} />}
-          />
+
+        <Grid item xs={12} md={4}>
+          <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg">
+            <CardContent>
+              <div className="flex justify-between items-center">
+                <div>
+                  <Typography variant="h6" className="opacity-75">Pending Orders</Typography>
+                  <Typography variant="h3" fontWeight="bold">
+                    {pendingOrders}
+                  </Typography>
+                </div>
+                <AccessTimeIcon style={{ fontSize: 60, opacity: 0.8 }} />
+              </div>
+            </CardContent>
+          </Card>
         </Grid>
-        <Grid item lg={3} xs={12}>
-          <AvgCard
-            title={"Left Items"}
-            value={`${1}`}
-            growValue={10}
-            icon={<FastfoodIcon sx={{ fontSize: "3rem", color: "red" }} />
-            
-          }
-          />
-        </Grid> */}
-        <Grid lg={6} xs={12} item>
-          <OrdersTable name={"Recent Order"} isDashboard={true} />
+      </Grid>
+
+      {/* Tables */}
+      <Grid container spacing={3}>
+        <Grid item xs={12} lg={6}>
+          <OrdersTable name={"Recent Orders"} isDashboard={true} />
         </Grid>
-        <Grid lg={6} xs={12} item>
+        <Grid item xs={12} lg={6}>
           <MenuItemTable isDashboard={true} name={"Recently Added Menu"} />
         </Grid>
       </Grid>

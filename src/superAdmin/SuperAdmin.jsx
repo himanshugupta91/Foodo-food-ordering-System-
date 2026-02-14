@@ -4,6 +4,7 @@ import SuperAdminSidebar from "./SuperAdminSideBar";
 import SuperAdminCustomerTable from "./SuperAdminCustomerTable/SuperAdminCustomerTable";
 import RestaurantTable from "./Restaurants/RestaurantTable";
 import RestaurantRequest from "./RestaurantRequest/RestaurantRequest";
+import SuperAdminDashboard from "./SuperAdminDashboard/SuperAdminDashboard";
 
 const SuperAdmin = () => {
   return (
@@ -16,6 +17,7 @@ const SuperAdmin = () => {
         <main className="flex-1">
           <div className="max-w-[1400px] mx-auto p-4 lg:p-8">
             <Routes>
+              <Route path="/" element={<SuperAdminDashboard />} />
               <Route path="/customers" element={<SuperAdminCustomerTable name="All Customers" />} />
               <Route path="/restaurants" element={<RestaurantTable name="All Restaurants" />} />
               <Route path="/restaurant-request" element={<RestaurantRequest />} />

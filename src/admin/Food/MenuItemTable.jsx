@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 import React, { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -25,24 +25,21 @@ import {
   getMenuItemsByRestaurantId,
   updateMenuItemsAvailability,
 } from "../../state/customers/Menu/menu.action";
-import { updateStockOfIngredient } from "../../state/admin/Ingredients/Action";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import { categorizedIngredients } from "../../customers/util/CategorizeIngredients";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Create, Remove } from "@mui/icons-material";
+import { Create } from "@mui/icons-material";
 
 const MenuItemTable = ({ isDashboard, name }) => {
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { menu, ingredients, restaurant,auth } = useSelector((store) => store);
-  const { id } = useParams();
-  const jwt=localStorage.getItem("jwt");
+  const { menu, ingredients, restaurant, auth } = useSelector((store) => store);
+  const jwt = localStorage.getItem("jwt");
 
   useEffect(() => {
-    
-      if(restaurant.usersRestaurant){
-       dispatch( getMenuItemsByRestaurantId({
+
+    if (restaurant.usersRestaurant) {
+      dispatch(getMenuItemsByRestaurantId({
         restaurantId: restaurant.usersRestaurant?.id,
         jwt: localStorage.getItem("jwt"),
         seasonal: false,
@@ -50,10 +47,10 @@ const MenuItemTable = ({ isDashboard, name }) => {
         nonveg: false,
         foodCategory: "",
       }));
-      }
-      
-    
-  }, [ingredients.update,restaurant.usersRestaurant]);
+    }
+
+
+  }, [ingredients.update, restaurant.usersRestaurant, dispatch]);
 
   // console.log(
   //   "-------- ",
@@ -61,14 +58,14 @@ const MenuItemTable = ({ isDashboard, name }) => {
   //   categorizedIngredients(menu.menuItems[1].ingredients)
   // );
 
-  
+
 
   const handleFoodAvialability = (foodId) => {
-    dispatch(updateMenuItemsAvailability({foodId,jwt:auth.jwt || jwt}));
+    dispatch(updateMenuItemsAvailability({ foodId, jwt: auth.jwt || jwt }));
   };
 
   const handleDeleteFood = (foodId) => {
-    dispatch(deleteFoodAction({foodId,jwt:auth.jwt || jwt}));
+    dispatch(deleteFoodAction({ foodId, jwt: auth.jwt || jwt }));
   };
 
   return (

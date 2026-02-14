@@ -8,6 +8,7 @@ import { orderReducer } from "../customers/Orders/order.reducer";
 import restaurantsOrderReducer from "../admin/Order/restaurants.order.reducer";
 import superAdminReducer from "../superAdmin/superAdmin.reducer";
 import { ingredientReducer } from "../admin/Ingredients/Reducer";
+import { reviewReducer } from "../customers/Review/review.reducer";
 
 
 
@@ -24,7 +25,10 @@ const rootReducer = combineReducers({
     ingredients: ingredientReducer,
 
     // super admin
-    superAdmin: superAdminReducer
+    superAdmin: superAdminReducer,
+
+    // Review
+    review: reviewReducer
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))

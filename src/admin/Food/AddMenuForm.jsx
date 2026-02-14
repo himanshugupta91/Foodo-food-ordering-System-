@@ -11,7 +11,6 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import { useParams } from "react-router-dom";
 import {
   Alert,
   Box,
@@ -69,13 +68,13 @@ const initialValues = {
 
 const AddMenuForm = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
   const { restaurant, ingredients, auth, menu } = useSelector((store) => store);
   const [uploadImage, setUploadingImage] = useState("");
   const jwt = localStorage.getItem("jwt");
 
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit: (values) => {
       values.restaurantId = restaurant.usersRestaurant.id;
 

@@ -34,7 +34,11 @@ const UserProfile = () => {
           <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-xl p-4">
             <p className="text-sm text-neutral-600 mb-1">Role</p>
             <p className="font-semibold text-neutral-800">
-              {auth.user?.role === 'ROLE_CUSTOMER' ? 'Customer' : 'Restaurant Owner'}
+              {auth.user?.role === 'ROLE_CUSTOMER' ? 'Customer'
+                : auth.user?.role === 'ROLE_RESTAURANT_OWNER' ? 'Restaurant Owner'
+                  : auth.user?.role === 'ROLE_ADMIN' ? 'Restaurant Admin'
+                    : auth.user?.role === 'ROLE_SUPER_ADMIN' ? 'Super Admin'
+                      : auth.user?.role}
             </p>
           </div>
           <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-xl p-4">

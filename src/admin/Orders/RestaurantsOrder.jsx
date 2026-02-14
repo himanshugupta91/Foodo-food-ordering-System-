@@ -8,7 +8,7 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantsOrder } from "../../state/admin/Order/restaurants.order.action";
 
@@ -24,7 +24,6 @@ const RestaurantsOrder = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id } = useParams();
   const jwt = localStorage.getItem("jwt");
   const { restaurant, auth } = useSelector((store) => store);
 
@@ -40,7 +39,7 @@ const RestaurantsOrder = () => {
         jwt: auth.jwt || jwt,
       })
     );
-  }, [auth.jwt, filterValue]);
+  }, [auth.jwt, filterValue, restaurant.usersRestaurant, dispatch, jwt]);
 
   const handleFilter = (e, value) => {
     const searchParams = new URLSearchParams(location.search);

@@ -30,7 +30,7 @@ const restaurantReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        usersRestaurant:action.payload
+        usersRestaurant: action.payload
       };
     case actionTypes.GET_ALL_RESTAURANTS_SUCCESS:
       return {
@@ -44,9 +44,18 @@ const restaurantReducer = (state = initialState, action) => {
         loading: false,
         restaurant: action.payload,
       };
-    case actionTypes.GET_RESTAURANT_BY_USER_ID_SUCCESS:
     case actionTypes.UPDATE_RESTAURANT_STATUS_SUCCESS:
     case actionTypes.UPDATE_RESTAURANT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        usersRestaurant: action.payload,
+        restaurants: state.restaurants.map((item) =>
+          item.id === action.payload.id ? action.payload : item
+        ),
+      };
+
+    case actionTypes.GET_RESTAURANT_BY_USER_ID_SUCCESS:
       return {
         ...state,
         loading: false,

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import AdminDashboard from "./Dashboard/AdminDashboard";
 import AdminSidebar from "./AdminSidebar";
 import RestaurantsOrder from "./Orders/RestaurantsOrder";
 import AddMenuForm from "./Food/AddMenuForm";
 import CreateRestaurantForm from "./AddRestaurants/CreateRestaurantForm";
-import MenuItemTable from "./Food/MenuItemTable";
 import Category from "./Category/Category";
 import Ingredients from "./Ingredients/Ingredients";
 import Events from "./Events/Events";
@@ -17,11 +15,8 @@ import {
   getIngredientsOfRestaurant,
 } from "../state/admin/Ingredients/Action";
 import {
-  getRestaurantById,
   getRestaurantsCategory,
 } from "../state/customers/Restaurant/restaurant.action";
-import { getMenuItemsByRestaurantId } from "../state/customers/Menu/menu.action";
-import { getUsersOrders } from "../state/customers/Orders/Action";
 import { fetchRestaurantsOrder } from "../state/admin/Order/restaurants.order.action";
 import RestaurantDashboard from "./Dashboard/RestaurantDashboard";
 import RestaurantsMenu from "./Food/RestaurantsMenu";
@@ -31,7 +26,7 @@ const Admin = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
   const handleOpenSideBar = () => setOpenSideBar(true);
   const handleCloseSideBar = () => setOpenSideBar(false);
-  const { auth, restaurant, ingredients } = useSelector((store) => store);
+  const { auth, restaurant } = useSelector((store) => store);
   const jwt = localStorage.getItem("jwt");
 
   useEffect(() => {

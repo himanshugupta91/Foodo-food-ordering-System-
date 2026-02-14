@@ -16,16 +16,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchRestaurantsOrder,
   updateOrderStatus,
+  deleteOrder,
 } from "../../state/admin/Order/restaurants.order.action";
 // import {
 //   confirmOrder,
@@ -43,13 +41,10 @@ const orderStatus = [
 ];
 
 const OrdersTable = ({ isDashboard, name }) => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({ status: "", sort: "" });
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const { restaurantsOrder } = useSelector((store) => store);
   const [anchorElArray, setAnchorElArray] = useState([]);
-  const { id } = useParams();
 
   const handleUpdateStatusMenuClick = (event, index) => {
     const newAnchorElArray = [...anchorElArray];
@@ -65,7 +60,13 @@ const OrdersTable = ({ isDashboard, name }) => {
 
   const handleUpdateOrder = (orderId, orderStatus, index) => {
     handleUpdateStatusMenuClose(index);
-    dispatch(updateOrderStatus({ orderId, orderStatus,jwt }));
+    dispatch(updateOrderStatus({ orderId, orderStatus, jwt }));
+  };
+
+  const handleDeleteOrder = (orderId) => {
+    if (window.confirm("Are you sure you want to delete this order?")) {
+      dispatch(deleteOrder({ orderId, jwt }));
+    }
   };
 
   // console.log("restaurants orders store ", restaurantsOrder)
@@ -85,21 +86,21 @@ const OrdersTable = ({ isDashboard, name }) => {
           <Table sx={{}} aria-label="table in dashboard">
             <TableHead>
               <TableRow>
-              <TableCell>Id</TableCell>
+                <TableCell>Id</TableCell>
                 <TableCell>Image</TableCell>
                 {/* {!isDashboard && <TableCell>Title</TableCell>} */}
                 <TableCell>Customer</TableCell>
                 <TableCell>Price</TableCell>
-             
+
                 <TableCell>Name</TableCell>
                 {!isDashboard && <TableCell>Ingredients</TableCell>}
-                {!isDashboard &&<TableCell>Status</TableCell>}
+                {!isDashboard && <TableCell>Status</TableCell>}
                 {!isDashboard && (
                   <TableCell sx={{ textAlign: "center" }}>Update</TableCell>
                 )}
-                {/* {!isDashboard && (
+                {!isDashboard && (
                   <TableCell sx={{ textAlign: "center" }}>Delete</TableCell>
-                )} */}
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -131,7 +132,7 @@ const OrdersTable = ({ isDashboard, name }) => {
                     </TableCell>
 
                     <TableCell>₹{item?.totalAmount}</TableCell>
-                    
+
                     <TableCell className="">
                       {item.items.map((orderItem) => (
                         <p>
@@ -139,17 +140,17 @@ const OrdersTable = ({ isDashboard, name }) => {
                         </p>
                       ))}
                     </TableCell>
-                  {!isDashboard &&  <TableCell className="space-y-2">
+                    {!isDashboard && <TableCell className="space-y-2">
                       {item.items.map((orderItem) =>
-                      <div className="flex gap-1 flex-wrap">
-                       { orderItem.ingredients?.map((ingre) => (
-                          <Chip label={ingre} />
-                        ))}
-                      </div>
-                        
+                        <div className="flex gap-1 flex-wrap">
+                          {orderItem.ingredients?.map((ingre) => (
+                            <Chip label={ingre} />
+                          ))}
+                        </div>
+
                       )}
                     </TableCell>}
-                    {!isDashboard &&<TableCell className="text-white">
+                    {!isDashboard && <TableCell className="text-white">
                       <Chip
                         sx={{
                           color: "white !important",
@@ -162,8 +163,8 @@ const OrdersTable = ({ isDashboard, name }) => {
                           item.orderStatus === "PENDING"
                             ? "info"
                             : item?.orderStatus === "DELIVERED"
-                            ? "success"
-                            : "secondary"
+                              ? "success"
+                              : "secondary"
                         }
                         className="text-white"
                       />
@@ -207,26 +208,27 @@ const OrdersTable = ({ isDashboard, name }) => {
                         </div>
                       </TableCell>
                     )}
-                    {/* {!isDashboard && (
-                    <TableCell
-                      sx={{ textAlign: "center" }}
-                      className="text-white"
-                    >
-                      <Button
-                        onClick={() => handleDeleteOrder(item._id)}
-                        variant="text"
+                    {!isDashboard && (
+                      <TableCell
+                        sx={{ textAlign: "center" }}
+                        className="text-white"
                       >
-                        delete
-                      </Button>
-                    </TableCell>
-                  )} */}
+                        <Button
+                          onClick={() => handleDeleteOrder(item.id)}
+                          variant="text"
+                          color="error"
+                        >
+                          delete
+                        </Button>
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))}
             </TableBody>
           </Table>
         </TableContainer>
       </Card>
-      
+
 
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

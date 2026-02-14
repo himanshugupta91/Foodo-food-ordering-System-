@@ -4,7 +4,6 @@ import {
   createEventAction,
   getRestaurnatsEvents,
 } from "../../state/customers/Restaurant/restaurant.action";
-import dayjs from "dayjs";
 import EventCard from "./EventCard";
 import { Modal } from "../../components/ui/Modal";
 import { Input, Button } from "../../components/ui/Form";
@@ -57,7 +56,7 @@ const Events = () => {
         })
       );
     }
-  }, [restaurant.usersRestaurant]);
+  }, [restaurant.usersRestaurant, dispatch, auth.jwt, jwt]);
 
   return (
     <div className="space-y-6 animate-fade-in">

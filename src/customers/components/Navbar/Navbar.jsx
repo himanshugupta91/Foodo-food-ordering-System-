@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../state/authentication/Action";
 import { ShoppingCart, User, Menu, X, Search, Heart, Package, LogOut, ChevronDown, Home, Compass } from "lucide-react";
@@ -35,11 +35,7 @@ const Navbar = () => {
   };
 
   const navigateToProfile = () => {
-    if (auth.user?.role === "ROLE_ADMIN" || auth.user?.role === "ROLE_RESTAURANT_OWNER") {
-      navigate("/admin/restaurant");
-    } else {
-      navigate("/my-profile");
-    }
+    navigate("/my-profile");
   };
 
   const navigateToHome = () => {
@@ -157,6 +153,28 @@ const Navbar = () => {
                         </p>
                         <p className="text-xs text-neutral-500 truncate">{auth.user.email}</p>
                       </div>
+                      {auth.user.role === "ROLE_SUPER_ADMIN" && (
+                        <button
+                          onClick={() => {
+                            navigate("/super-admin");
+                            handleCloseMenu();
+                          }}
+                          className="w-full text-left px-5 py-2.5 hover:bg-primary-50 transition-colors text-neutral-600 hover:text-primary-600 flex items-center gap-3 font-semibold text-primary-600"
+                        >
+                          <span className="w-4 h-4 text-center">⚡</span> Super Admin
+                        </button>
+                      )}
+                      {(auth.user.role === "ROLE_ADMIN" || auth.user.role === "ROLE_RESTAURANT_OWNER") && (
+                        <button
+                          onClick={() => {
+                            navigate("/admin/restaurant");
+                            handleCloseMenu();
+                          }}
+                          className="w-full text-left px-5 py-2.5 hover:bg-primary-50 transition-colors text-neutral-600 hover:text-primary-600 flex items-center gap-3 font-semibold text-primary-600"
+                        >
+                          <span className="w-4 h-4 text-center">🏪</span> Restaurant Dashboard
+                        </button>
+                      )}
                       <button
                         onClick={() => {
                           navigateToProfile();
@@ -229,6 +247,28 @@ const Navbar = () => {
             </button>
             {auth.user && (
               <>
+                {auth.user.role === "ROLE_SUPER_ADMIN" && (
+                  <button
+                    onClick={() => {
+                      navigate("/super-admin");
+                      setMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 rounded-lg text-primary-600 bg-primary-50 hover:bg-primary-100 flex items-center gap-3 font-semibold"
+                  >
+                    <span className="w-5 flex justify-center">⚡</span> Super Admin
+                  </button>
+                )}
+                {(auth.user.role === "ROLE_ADMIN" || auth.user.role === "ROLE_RESTAURANT_OWNER") && (
+                  <button
+                    onClick={() => {
+                      navigate("/admin/restaurant");
+                      setMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 rounded-lg text-primary-600 bg-primary-50 hover:bg-primary-100 flex items-center gap-3 font-semibold"
+                  >
+                    <span className="w-5 flex justify-center">🏪</span> Restaurant Dashboard
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     navigate("/my-profile/favorites");

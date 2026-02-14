@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import MenuItemCard from "../../components/MenuItem/MenuItemCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import {
 } from "../../../state/customers/Restaurant/restaurant.action";
 import { getMenuItemsByRestaurantId } from "../../../state/customers/Menu/menu.action";
 import { Grid3x3, MapPin, Clock } from "lucide-react";
+import ReviewSection from "./ReviewSection";
 
 const foodTypes = [
   { label: "All", value: "all" },
@@ -288,6 +289,11 @@ const Restaurant = () => {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+          <ReviewSection />
         </div>
       </div>
     </div>

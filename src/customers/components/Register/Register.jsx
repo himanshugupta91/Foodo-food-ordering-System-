@@ -28,7 +28,6 @@ const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (values) => {
@@ -88,10 +87,6 @@ const RegistrationForm = () => {
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
-                  onChange={(e) => {
-                    setCurrentPassword(e.target.value);
-                    // Let Formik handle the field update
-                  }}
                   className="w-full px-4 py-3 pr-12 border-2 border-neutral-200 rounded-lg outline-none 
                            focus:border-primary-500 focus:ring-4 focus:ring-primary-100 transition-all
                            placeholder-neutral-400"
@@ -135,6 +130,7 @@ const RegistrationForm = () => {
               >
                 <option value="ROLE_CUSTOMER">Customer</option>
                 <option value="ROLE_RESTAURANT_OWNER">Restaurant Owner</option>
+                <option value="ROLE_SUPER_ADMIN">Super Admin</option>
               </Field>
               <ErrorMessage name="role">
                 {(msg) => <span className="text-red-600 text-sm mt-1 block">{msg}</span>}

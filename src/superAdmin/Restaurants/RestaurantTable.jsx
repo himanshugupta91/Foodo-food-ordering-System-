@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllRestaurantsAction } from "../../state/customers/Restaurant/restaurant.action";
+import {
+  getAllRestaurantsAction,
+  deleteRestaurant,
+  updateRestaurantStatus,
+} from "../../state/customers/Restaurant/restaurant.action";
+import { IconButton, Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Table, TableHead, TableBody, TableRow, TableCell } from "../../components/ui/Table";
 import { Card, LoadingSpinner } from "../../components/ui/Modal";
 
@@ -11,6 +17,16 @@ const RestaurantTable = ({ isDashboard, name }) => {
   useEffect(() => {
     dispatch(getAllRestaurantsAction(localStorage.getItem("jwt")));
   }, [dispatch]);
+
+  const handleDeleteRestaurant = (restaurantId) => {
+    if (window.confirm("Are you sure you want to delete this restaurant?")) {
+      dispatch(deleteRestaurant({ restaurantId, jwt: localStorage.getItem("jwt") }));
+    }
+  }
+
+  const handleUpdateStatus = (restaurantId) => {
+    dispatch(updateRestaurantStatus({ restaurantId, jwt: localStorage.getItem("jwt") }));
+  }
 
   const displayedRestaurants = isDashboard
     ? restaurant.restaurants.slice(0, 7)
@@ -37,6 +53,8 @@ const RestaurantTable = ({ isDashboard, name }) => {
                 <TableCell header>Cuisine Type</TableCell>
                 <TableCell header>Location</TableCell>
                 {!isDashboard && <TableCell header>Contact</TableCell>}
+                {!isDashboard && <TableCell header>Status</TableCell>}
+                {!isDashboard && <TableCell header>Actions</TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -60,6 +78,39 @@ const RestaurantTable = ({ isDashboard, name }) => {
                   <TableCell>{item.address?.city}</TableCell>
                   {!isDashboard && (
                     <TableCell>{item.contactInformation?.email}</TableCell>
+                  )}
+                  {!isDashboard && (
+                    <TableCell>
+                      {item.open ? (
+                        <span className="px-2 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold">
+                          Open
+                        </span>
+                      ) : (
+                        <span className="px-2 py-1 rounded-full bg-red-100 text-red-800 text-xs font-semibold">
+                          Closed
+                        </span>
+                      )}
+                    </TableCell>
+                  )}
+                  {!isDashboard && (
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          color={item.open ? "warning" : "success"}
+                          onClick={() => handleUpdateStatus(item.id)}
+                        >
+                          {item.open ? "Close" : "Open"}
+                        </Button>
+                        <IconButton
+                          color="error"
+                          onClick={() => handleDeleteRestaurant(item.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    </TableCell>
                   )}
                 </TableRow>
               ))}

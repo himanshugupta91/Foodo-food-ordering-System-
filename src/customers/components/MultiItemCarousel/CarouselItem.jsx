@@ -1,5 +1,4 @@
 import React from 'react'
-import { topMeals } from '../../../data/topMeals'
 
 const CarouselItem = ({ image, title }) => {
   return (

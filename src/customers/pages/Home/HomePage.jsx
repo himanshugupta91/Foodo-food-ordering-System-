@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllRestaurantsAction } from "../../../state/customers/Restaurant/restaurant.action";
 import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
 import { useNavigate } from "react-router-dom";
-import { Search, MapPin, Utensils, Zap, Star, Flame, Clock, Trophy } from "lucide-react";
+import { Search, MapPin, Utensils, Zap } from "lucide-react";
 import Footer from "../../components/Footer/Footer";
 
 const HomePage = () => {
